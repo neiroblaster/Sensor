@@ -1,5 +1,6 @@
 package com.shchayuk.sensor.RESTApi.controllers;
 
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.shchayuk.sensor.RESTApi.dto.MeasurementDTO;
 import com.shchayuk.sensor.RESTApi.dto.SensorDTO;
 import com.shchayuk.sensor.RESTApi.models.Measurement;
@@ -55,6 +56,15 @@ public class MeasurementController {
         );
         return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
     }
+
+//    @ExceptionHandler
+//    public ResponseEntity<MeasurementErrorResponse> handlerException(InvalidFormatException e){
+//        MeasurementErrorResponse response = new MeasurementErrorResponse(
+//                e.getMessage(),
+//                System.currentTimeMillis()
+//        );
+//        return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
+//    }
 
     private Measurement convertToMeasurement(MeasurementDTO measurementDTO) {
        Measurement measurement = modelMapper.map(measurementDTO, Measurement.class);
