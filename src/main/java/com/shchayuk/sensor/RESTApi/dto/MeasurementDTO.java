@@ -1,5 +1,6 @@
 package com.shchayuk.sensor.RESTApi.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.shchayuk.sensor.RESTApi.models.Sensor;
 import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
@@ -18,11 +19,11 @@ public class MeasurementDTO {
     @Max(value = 100)
     private double value;
 
-    @NotEmpty(message = "The value shouldn't be empty")
+    @NotNull(message = "The value shouldn't be empty")
     private boolean raining;
 
-    @NotEmpty(message = "The value shouldn't be empty")
-    private Sensor sensor;
+    @JsonProperty("sensor")
+    private SensorDTO sensorDTO;
 
     public double getValue() {
         return value;
@@ -40,11 +41,11 @@ public class MeasurementDTO {
         this.raining = raining;
     }
 
-    public Sensor getSensor() {
-        return sensor;
+    public SensorDTO getSensorDTO() {
+        return sensorDTO;
     }
 
-    public void setSensor(Sensor sensor) {
-        this.sensor = sensor;
+    public void setSensorDTO(SensorDTO sensorDTO) {
+        this.sensorDTO = sensorDTO;
     }
 }

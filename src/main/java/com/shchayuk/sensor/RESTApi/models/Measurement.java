@@ -23,14 +23,13 @@ public class Measurement {
     @Column(name = "value")
     private double value;
 
-    @NotEmpty(message = "The value shouldn't be empty")
+    @NotNull(message = "The value shouldn't be empty")
     @Column(name = "raining")
     private boolean raining;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @NotEmpty
     @ManyToOne
     @JoinColumn(name = "sensor_id", referencedColumnName = "id")
     private Sensor sensor;

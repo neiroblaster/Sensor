@@ -1,8 +1,11 @@
 package com.shchayuk.sensor.RESTApi.controllers;
 
 import com.shchayuk.sensor.RESTApi.dto.MeasurementDTO;
+import com.shchayuk.sensor.RESTApi.dto.SensorDTO;
 import com.shchayuk.sensor.RESTApi.models.Measurement;
+import com.shchayuk.sensor.RESTApi.models.Sensor;
 import com.shchayuk.sensor.RESTApi.services.MeasurementService;
+import com.shchayuk.sensor.RESTApi.utils.MeasurementErrorResponse;
 import com.shchayuk.sensor.RESTApi.utils.MeasurementNotAddError;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
@@ -11,10 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -47,7 +47,22 @@ public class MeasurementController {
             return ResponseEntity.ok(HttpStatus.OK);
     }
 
+    @ExceptionHandler
+    public ResponseEntity<MeasurementErrorResponse> handlerException(MeasurementNotAddError e){
+        MeasurementErrorResponse response = new MeasurementErrorResponse(
+                e.getMessage(),
+                System.currentTimeMillis()
+        );
+        return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
+    }
+
     private Measurement convertToMeasurement(MeasurementDTO measurementDTO) {
-        return modelMapper.map(measurementDTO, Measurement.class);
+       Measurement measurement = modelMapper.map(measurementDTO, Measurement.class);
+       measurement.setSensor(convertToSensor(measurementDTO.getSensorDTO()));
+       return measurement;
+    }
+
+    private Sensor convertToSensor(SensorDTO sensorDTO) {
+        return modelMapper.map(sensorDTO, Sensor.class);
     }
 }
