@@ -2,7 +2,6 @@ package com.shchayuk.sensor.RESTApi.services;
 
 import com.shchayuk.sensor.RESTApi.repositories.SensorRepository;
 import com.shchayuk.sensor.RESTApi.models.Sensor;
-import com.shchayuk.sensor.RESTApi.utils.MeasurementErrorResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

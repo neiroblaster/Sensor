@@ -1,10 +1,6 @@
 package com.shchayuk.sensor.RESTApi.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
@@ -17,15 +13,11 @@ public class Measurement {
     @Column(name = "id")
     private int id;
 
-    @NotNull(message = "The value shouldn't be empty")
-    @Min(value = -100)
-    @Max(value = 100)
     @Column(name = "value")
-    private double value;
+    private Double value;
 
-    @NotNull(message = "The value shouldn't be empty")
     @Column(name = "raining")
-    private boolean raining;
+    private Boolean raining;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -37,7 +29,7 @@ public class Measurement {
     public Measurement() {
     }
 
-    public Measurement(double value, boolean raining, LocalDateTime createdAt) {
+    public Measurement(Double value, Boolean raining, LocalDateTime createdAt) {
         this.value = value;
         this.raining = raining;
         this.createdAt = createdAt;
@@ -51,19 +43,19 @@ public class Measurement {
         this.id = id;
     }
 
-    public double getValue() {
+    public Double getValue() {
         return value;
     }
 
-    public void setValue(double value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 
-    public boolean isRaining() {
+    public Boolean getRaining() {
         return raining;
     }
 
-    public void setRaining(boolean raining) {
+    public void setRaining(Boolean raining) {
         this.raining = raining;
     }
 
